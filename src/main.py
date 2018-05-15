@@ -2,49 +2,52 @@
 # Jarrod Finnis
 # 14/05/2018
 
-import sys
 from src.Tree import Tree
 from src.Node import Node
 
-def treeStructure(file):
+
+def tree_structure(file):
     line = file.readline()
-    treeTemp = Tree(line)
-    node = treeTemp.root
+    tree_temp = Tree(line)
+    tree_temp.get_root().set_parent(None)
+    node = tree_temp.get_root()
     branch = 0
 
     for line in file:
         count = 0
-        while (line[0] == '='):
+        while line[0] == '=':
             line = line[1:]
             count += 1
 
-        if (count > branch):
+        if count > branch:
             temp = node
-            node = node.addChild(Node(line))
-            node.setParent(temp)
+            node = node.add_child(Node(line))
+            node.set_parent(temp)
             branch += 1
 
-        elif (count < branch):
-            levels = branch - count
+        elif count < branch:
+            levels = branch - count + 1
             branch -= levels
             for i in range(levels):
-                node = node.getParent()
+                node = node.get_parent()
 
             temp = node
-            node = node.addChild(Node(line))
-            node.setParent(temp)
+            node = node.add_child(Node(line))
+            node.set_parent(temp)
 
-    return treeTemp
+    return tree_temp
 
 
 if __name__ == "__main__":
-    #f = open(sys.argv[1], "r")
-    filename = "testdata1.ir"
+    # f = open(sys.argv[1], "r")
+    filename = "testdata2.ir"
     f = open(filename, "r")
 
     try:
-        tree = treeStructure(f)
-        tree.depthTree(tree.getRoot())
+        tree = tree_structure(f)
+        representation = ""
+        Tree.depth_tree(tree.get_root(), representation)
+        print(representation)
         f.close()
     except IOError as erno:
         print("Could not find the file")

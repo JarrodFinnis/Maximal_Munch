@@ -1,33 +1,35 @@
+# Nodes that make up the tree structure
+
+
 class Node:
     def __init__(self, value):
         self.value = value
         self.parent = None
         self.children = []
 
-    def setValue(self, value):
+    def set_value(self, value):
         self.value = value
 
-    def getValue(self):
+    def get_value(self):
         return self.value
 
-    def setParent(self, par):
+    def set_parent(self, par):
         self.parent = par
 
-    def getParent(self):
+    def get_parent(self):
         return self.parent
 
-    def addChild(self, child):
+    def add_child(self, child):
         self.children.append(child)
         return child
 
-    def hasChildren(self):
-        if (len(self.children) > 0):
+    def has_children(self):
+        if len(self.children) > 0:
             return True
         return False
 
-
-    def getChildren(self):
-        if (self.hasChildren()):
+    def get_children(self):
+        if self.has_children():
             return self.children
         else:
             return None
